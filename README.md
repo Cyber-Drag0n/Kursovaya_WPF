@@ -37,7 +37,7 @@
 ## Структура проекта
 
 ```text
-UniversityManager/
+Kursovaya_WPF/
 ├── App.xaml
 ├── MainWindow\.xaml
 ├── MainWindow\.xaml.cs
@@ -131,4 +131,4 @@ https://github.com/Cyber-Drag0n/Kursovaya_DBCreationScript.git
 
 **Нуруллин А.М.**
 Казанский национальный исследовательский технический университет — КАИ
-Группа 4235, колледж «КИТ»
+Группа 4235, «Колледж информационных технологий»
