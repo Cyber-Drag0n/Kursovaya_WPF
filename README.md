@@ -119,6 +119,14 @@ UniversityManager/
 
 ---
 
+## Ссылка на репозиторий с файлом Курсовой работы и скриптом создания БД
+
+```text
+https://github.com/Cyber-Drag0n/Kursovaya_DBCreationScript.git
+```
+
+---
+
 ## Автор
 
 **Нуруллин А.М.**
