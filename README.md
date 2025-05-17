@@ -98,6 +98,8 @@ UniversityManager/
 
 ## Модель данных
 
+![ER-диаграмма](https://github.com/user-attachments/assets/b105bc51-1efd-478f-866e-392a5d5e9904)
+
 Основные сущности и связи:
 
 * **Users** — хранит учётные записи пользователей
