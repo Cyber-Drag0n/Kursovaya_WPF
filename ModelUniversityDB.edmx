@@ -1,0 +1,602 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище UniversityDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Awards">
+          <Key>
+            <PropertyRef Name="award_id" />
+          </Key>
+          <Property Name="award_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="graduate_id" Type="int" Nullable="false" />
+          <Property Name="award_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="award_year" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Departments">
+          <Key>
+            <PropertyRef Name="department_id" />
+          </Key>
+          <Property Name="department_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="department_name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DiplomaWorks">
+          <Key>
+            <PropertyRef Name="diploma_id" />
+          </Key>
+          <Property Name="diploma_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="graduate_id" Type="int" Nullable="false" />
+          <Property Name="advisor_id" Type="int" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="year" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Graduates">
+          <Key>
+            <PropertyRef Name="graduate_id" />
+          </Key>
+          <Property Name="graduate_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="department_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GraduateSkills">
+          <Key>
+            <PropertyRef Name="graduate_id" />
+            <PropertyRef Name="skill_id" />
+          </Key>
+          <Property Name="graduate_id" Type="int" Nullable="false" />
+          <Property Name="skill_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="role_id" />
+          </Key>
+          <Property Name="role_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="role_name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ScientificAdvisors">
+          <Key>
+            <PropertyRef Name="advisor_id" />
+          </Key>
+          <Property Name="advisor_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="department_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Skills">
+          <Key>
+            <PropertyRef Name="skill_id" />
+          </Key>
+          <Property Name="skill_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="skill_name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="role_id" Type="int" Nullable="false" />
+          <Property Name="first_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="last_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="password_hash" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Awards_Graduates">
+          <End Role="Graduates" Type="Self.Graduates" Multiplicity="1" />
+          <End Role="Awards" Type="Self.Awards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Graduates">
+              <PropertyRef Name="graduate_id" />
+            </Principal>
+            <Dependent Role="Awards">
+              <PropertyRef Name="graduate_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DiplomaWorks_Graduates">
+          <End Role="Graduates" Type="Self.Graduates" Multiplicity="1" />
+          <End Role="DiplomaWorks" Type="Self.DiplomaWorks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Graduates">
+              <PropertyRef Name="graduate_id" />
+            </Principal>
+            <Dependent Role="DiplomaWorks">
+              <PropertyRef Name="graduate_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DiplomaWorks_ScientificAdvisors">
+          <End Role="ScientificAdvisors" Type="Self.ScientificAdvisors" Multiplicity="1" />
+          <End Role="DiplomaWorks" Type="Self.DiplomaWorks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ScientificAdvisors">
+              <PropertyRef Name="advisor_id" />
+            </Principal>
+            <Dependent Role="DiplomaWorks">
+              <PropertyRef Name="advisor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Graduates_Departments">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="1" />
+          <End Role="Graduates" Type="Self.Graduates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="department_id" />
+            </Principal>
+            <Dependent Role="Graduates">
+              <PropertyRef Name="department_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Graduates_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Graduates" Type="Self.Graduates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Graduates">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GraduateSkills_Graduates">
+          <End Role="Graduates" Type="Self.Graduates" Multiplicity="1" />
+          <End Role="GraduateSkills" Type="Self.GraduateSkills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Graduates">
+              <PropertyRef Name="graduate_id" />
+            </Principal>
+            <Dependent Role="GraduateSkills">
+              <PropertyRef Name="graduate_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GraduateSkills_Skills">
+          <End Role="Skills" Type="Self.Skills" Multiplicity="1" />
+          <End Role="GraduateSkills" Type="Self.GraduateSkills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skills">
+              <PropertyRef Name="skill_id" />
+            </Principal>
+            <Dependent Role="GraduateSkills">
+              <PropertyRef Name="skill_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScientificAdvisors_Departments">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="1" />
+          <End Role="ScientificAdvisors" Type="Self.ScientificAdvisors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="department_id" />
+            </Principal>
+            <Dependent Role="ScientificAdvisors">
+              <PropertyRef Name="department_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScientificAdvisors_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="ScientificAdvisors" Type="Self.ScientificAdvisors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="ScientificAdvisors">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="role_id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище UniversityDBModelContainer">
+          <EntitySet Name="Awards" EntityType="Self.Awards" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Departments" EntityType="Self.Departments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DiplomaWorks" EntityType="Self.DiplomaWorks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Graduates" EntityType="Self.Graduates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GraduateSkills" EntityType="Self.GraduateSkills" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ScientificAdvisors" EntityType="Self.ScientificAdvisors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Skills" EntityType="Self.Skills" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Awards_Graduates" Association="Self.FK_Awards_Graduates">
+            <End Role="Graduates" EntitySet="Graduates" />
+            <End Role="Awards" EntitySet="Awards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DiplomaWorks_Graduates" Association="Self.FK_DiplomaWorks_Graduates">
+            <End Role="Graduates" EntitySet="Graduates" />
+            <End Role="DiplomaWorks" EntitySet="DiplomaWorks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DiplomaWorks_ScientificAdvisors" Association="Self.FK_DiplomaWorks_ScientificAdvisors">
+            <End Role="ScientificAdvisors" EntitySet="ScientificAdvisors" />
+            <End Role="DiplomaWorks" EntitySet="DiplomaWorks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Graduates_Departments" Association="Self.FK_Graduates_Departments">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="Graduates" EntitySet="Graduates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Graduates_Users" Association="Self.FK_Graduates_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Graduates" EntitySet="Graduates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GraduateSkills_Graduates" Association="Self.FK_GraduateSkills_Graduates">
+            <End Role="Graduates" EntitySet="Graduates" />
+            <End Role="GraduateSkills" EntitySet="GraduateSkills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GraduateSkills_Skills" Association="Self.FK_GraduateSkills_Skills">
+            <End Role="Skills" EntitySet="Skills" />
+            <End Role="GraduateSkills" EntitySet="GraduateSkills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScientificAdvisors_Departments" Association="Self.FK_ScientificAdvisors_Departments">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="ScientificAdvisors" EntitySet="ScientificAdvisors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScientificAdvisors_Users" Association="Self.FK_ScientificAdvisors_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ScientificAdvisors" EntitySet="ScientificAdvisors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="UniversityDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Awards">
+          <Key>
+            <PropertyRef Name="award_id" />
+          </Key>
+          <Property Name="award_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="graduate_id" Type="Int32" Nullable="false" />
+          <Property Name="award_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="award_year" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Graduates" Relationship="Self.FK_Awards_Graduates" FromRole="Awards" ToRole="Graduates" />
+        </EntityType>
+        <EntityType Name="Departments">
+          <Key>
+            <PropertyRef Name="department_id" />
+          </Key>
+          <Property Name="department_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="department_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Graduates" Relationship="Self.FK_Graduates_Departments" FromRole="Departments" ToRole="Graduates" />
+          <NavigationProperty Name="ScientificAdvisors" Relationship="Self.FK_ScientificAdvisors_Departments" FromRole="Departments" ToRole="ScientificAdvisors" />
+        </EntityType>
+        <EntityType Name="DiplomaWorks">
+          <Key>
+            <PropertyRef Name="diploma_id" />
+          </Key>
+          <Property Name="diploma_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="graduate_id" Type="Int32" Nullable="false" />
+          <Property Name="advisor_id" Type="Int32" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="year" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Graduates" Relationship="Self.FK_DiplomaWorks_Graduates" FromRole="DiplomaWorks" ToRole="Graduates" />
+          <NavigationProperty Name="ScientificAdvisors" Relationship="Self.FK_DiplomaWorks_ScientificAdvisors" FromRole="DiplomaWorks" ToRole="ScientificAdvisors" />
+        </EntityType>
+        <EntityType Name="Graduates">
+          <Key>
+            <PropertyRef Name="graduate_id" />
+          </Key>
+          <Property Name="graduate_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="department_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Awards" Relationship="Self.FK_Awards_Graduates" FromRole="Graduates" ToRole="Awards" />
+          <NavigationProperty Name="Departments" Relationship="Self.FK_Graduates_Departments" FromRole="Graduates" ToRole="Departments" />
+          <NavigationProperty Name="DiplomaWorks" Relationship="Self.FK_DiplomaWorks_Graduates" FromRole="Graduates" ToRole="DiplomaWorks" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Graduates_Users" FromRole="Graduates" ToRole="Users" />
+          <NavigationProperty Name="Skills" Relationship="Self.GraduateSkills" FromRole="Graduates" ToRole="Skills" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="role_id" />
+          </Key>
+          <Property Name="role_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="role_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Roles" FromRole="Roles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="ScientificAdvisors">
+          <Key>
+            <PropertyRef Name="advisor_id" />
+          </Key>
+          <Property Name="advisor_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="department_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Departments" Relationship="Self.FK_ScientificAdvisors_Departments" FromRole="ScientificAdvisors" ToRole="Departments" />
+          <NavigationProperty Name="DiplomaWorks" Relationship="Self.FK_DiplomaWorks_ScientificAdvisors" FromRole="ScientificAdvisors" ToRole="DiplomaWorks" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_ScientificAdvisors_Users" FromRole="ScientificAdvisors" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Skills">
+          <Key>
+            <PropertyRef Name="skill_id" />
+          </Key>
+          <Property Name="skill_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="skill_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Graduates" Relationship="Self.GraduateSkills" FromRole="Skills" ToRole="Graduates" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="role_id" Type="Int32" Nullable="false" />
+          <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password_hash" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Graduates" Relationship="Self.FK_Graduates_Users" FromRole="Users" ToRole="Graduates" />
+          <NavigationProperty Name="Roles" Relationship="Self.FK_Users_Roles" FromRole="Users" ToRole="Roles" />
+          <NavigationProperty Name="ScientificAdvisors" Relationship="Self.FK_ScientificAdvisors_Users" FromRole="Users" ToRole="ScientificAdvisors" />
+        </EntityType>
+        <Association Name="FK_Awards_Graduates">
+          <End Role="Graduates" Type="Self.Graduates" Multiplicity="1" />
+          <End Role="Awards" Type="Self.Awards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Graduates">
+              <PropertyRef Name="graduate_id" />
+            </Principal>
+            <Dependent Role="Awards">
+              <PropertyRef Name="graduate_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Graduates_Departments">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="1" />
+          <End Role="Graduates" Type="Self.Graduates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="department_id" />
+            </Principal>
+            <Dependent Role="Graduates">
+              <PropertyRef Name="department_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScientificAdvisors_Departments">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="1" />
+          <End Role="ScientificAdvisors" Type="Self.ScientificAdvisors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="department_id" />
+            </Principal>
+            <Dependent Role="ScientificAdvisors">
+              <PropertyRef Name="department_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DiplomaWorks_Graduates">
+          <End Role="Graduates" Type="Self.Graduates" Multiplicity="1" />
+          <End Role="DiplomaWorks" Type="Self.DiplomaWorks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Graduates">
+              <PropertyRef Name="graduate_id" />
+            </Principal>
+            <Dependent Role="DiplomaWorks">
+              <PropertyRef Name="graduate_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DiplomaWorks_ScientificAdvisors">
+          <End Role="ScientificAdvisors" Type="Self.ScientificAdvisors" Multiplicity="1" />
+          <End Role="DiplomaWorks" Type="Self.DiplomaWorks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ScientificAdvisors">
+              <PropertyRef Name="advisor_id" />
+            </Principal>
+            <Dependent Role="DiplomaWorks">
+              <PropertyRef Name="advisor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Graduates_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Graduates" Type="Self.Graduates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Graduates">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="role_id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScientificAdvisors_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="ScientificAdvisors" Type="Self.ScientificAdvisors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="ScientificAdvisors">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="GraduateSkills">
+          <End Role="Graduates" Type="Self.Graduates" Multiplicity="*" />
+          <End Role="Skills" Type="Self.Skills" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="UniversityDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Awards" EntityType="Self.Awards" />
+          <EntitySet Name="Departments" EntityType="Self.Departments" />
+          <EntitySet Name="DiplomaWorks" EntityType="Self.DiplomaWorks" />
+          <EntitySet Name="Graduates" EntityType="Self.Graduates" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" />
+          <EntitySet Name="ScientificAdvisors" EntityType="Self.ScientificAdvisors" />
+          <EntitySet Name="Skills" EntityType="Self.Skills" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK_Awards_Graduates" Association="Self.FK_Awards_Graduates">
+            <End Role="Graduates" EntitySet="Graduates" />
+            <End Role="Awards" EntitySet="Awards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Graduates_Departments" Association="Self.FK_Graduates_Departments">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="Graduates" EntitySet="Graduates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScientificAdvisors_Departments" Association="Self.FK_ScientificAdvisors_Departments">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="ScientificAdvisors" EntitySet="ScientificAdvisors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DiplomaWorks_Graduates" Association="Self.FK_DiplomaWorks_Graduates">
+            <End Role="Graduates" EntitySet="Graduates" />
+            <End Role="DiplomaWorks" EntitySet="DiplomaWorks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DiplomaWorks_ScientificAdvisors" Association="Self.FK_DiplomaWorks_ScientificAdvisors">
+            <End Role="ScientificAdvisors" EntitySet="ScientificAdvisors" />
+            <End Role="DiplomaWorks" EntitySet="DiplomaWorks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Graduates_Users" Association="Self.FK_Graduates_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Graduates" EntitySet="Graduates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScientificAdvisors_Users" Association="Self.FK_ScientificAdvisors_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ScientificAdvisors" EntitySet="ScientificAdvisors" />
+          </AssociationSet>
+          <AssociationSet Name="GraduateSkills" Association="Self.GraduateSkills">
+            <End Role="Graduates" EntitySet="Graduates" />
+            <End Role="Skills" EntitySet="Skills" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище UniversityDBModelContainer" CdmEntityContainer="UniversityDBEntities">
+          <EntitySetMapping Name="Awards">
+            <EntityTypeMapping TypeName="UniversityDBModel.Awards">
+              <MappingFragment StoreEntitySet="Awards">
+                <ScalarProperty Name="award_id" ColumnName="award_id" />
+                <ScalarProperty Name="graduate_id" ColumnName="graduate_id" />
+                <ScalarProperty Name="award_name" ColumnName="award_name" />
+                <ScalarProperty Name="award_year" ColumnName="award_year" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="UniversityDBModel.Departments">
+              <MappingFragment StoreEntitySet="Departments">
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+                <ScalarProperty Name="department_name" ColumnName="department_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DiplomaWorks">
+            <EntityTypeMapping TypeName="UniversityDBModel.DiplomaWorks">
+              <MappingFragment StoreEntitySet="DiplomaWorks">
+                <ScalarProperty Name="diploma_id" ColumnName="diploma_id" />
+                <ScalarProperty Name="graduate_id" ColumnName="graduate_id" />
+                <ScalarProperty Name="advisor_id" ColumnName="advisor_id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="year" ColumnName="year" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Graduates">
+            <EntityTypeMapping TypeName="UniversityDBModel.Graduates">
+              <MappingFragment StoreEntitySet="Graduates">
+                <ScalarProperty Name="graduate_id" ColumnName="graduate_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="UniversityDBModel.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="role_name" ColumnName="role_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ScientificAdvisors">
+            <EntityTypeMapping TypeName="UniversityDBModel.ScientificAdvisors">
+              <MappingFragment StoreEntitySet="ScientificAdvisors">
+                <ScalarProperty Name="advisor_id" ColumnName="advisor_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Skills">
+            <EntityTypeMapping TypeName="UniversityDBModel.Skills">
+              <MappingFragment StoreEntitySet="Skills">
+                <ScalarProperty Name="skill_id" ColumnName="skill_id" />
+                <ScalarProperty Name="skill_name" ColumnName="skill_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="UniversityDBModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password_hash" ColumnName="password_hash" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="GraduateSkills" TypeName="UniversityDBModel.GraduateSkills" StoreEntitySet="GraduateSkills">
+            <EndProperty Name="Graduates">
+              <ScalarProperty Name="graduate_id" ColumnName="graduate_id" />
+            </EndProperty>
+            <EndProperty Name="Skills">
+              <ScalarProperty Name="skill_id" ColumnName="skill_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

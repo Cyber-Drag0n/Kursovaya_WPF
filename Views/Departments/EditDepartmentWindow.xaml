@@ -1,0 +1,19 @@
+﻿<Window x:Class="TRIZBD_Lab4.Views.Departments.EditDepartmentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TRIZBD_Lab4.Views.Departments"
+        mc:Ignorable="d"
+        Title="Edit Department" Height="200" Width="300" WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <StackPanel>
+            <Label>department_name</Label>
+            <TextBox Text="{Binding department_name}"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,10">
+            <Button Content="Сохранить"   Width="100" Margin="5" Click="Save_Click"/>
+            <Button Content="Отменить" Width="100" Margin="5" Click="Cancel_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

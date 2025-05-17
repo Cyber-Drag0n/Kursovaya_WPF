@@ -1,0 +1,23 @@
+﻿<Window x:Class="TRIZBD_Lab4.Views.Awards.EditAwardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TRIZBD_Lab4.Views.Awards"
+        mc:Ignorable="d"
+        Title="Edit Award" Height="250" Width="350" WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <StackPanel>
+            <Label>graduate_id</Label>
+            <ComboBox x:Name="GraduateCombo" DisplayMemberPath="graduate_id" SelectedValuePath="graduate_id" SelectedValue="{Binding graduate_id}"/>
+            <Label>award_name</Label>
+            <TextBox Text="{Binding award_name}"/>
+            <Label>award_year</Label>
+            <TextBox Text="{Binding award_year}"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,10">
+            <Button Content="Сохранить"   Width="100" Margin="5" Click="Save_Click"/>
+            <Button Content="Отменить" Width="100" Margin="5" Click="Cancel_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

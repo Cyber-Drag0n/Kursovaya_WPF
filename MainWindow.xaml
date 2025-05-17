@@ -1,0 +1,212 @@
+﻿<Window x:Class="TRIZBD_Lab4.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="TRIZBD_Lab4" Height="600" Width="900"
+        WindowStartupLocation="CenterScreen">
+    <DockPanel>
+        <ToolBarTray DockPanel.Dock="Top">
+            <ToolBar>
+                <Button Content="Обновить" Click="Refresh_Click" />
+            </ToolBar>
+        </ToolBarTray>
+
+        <TabControl x:Name="TabControlMain">
+
+            <!-- Users -->
+            <TabItem Header="Users">
+                <Grid>
+                    <DataGrid x:Name="UsersGrid"
+                              Margin="10"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="user_id"       Binding="{Binding user_id}"       Width="50"/>
+                            <DataGridTextColumn Header="role_id"       Binding="{Binding role_id}"       Width="50"/>
+                            <DataGridTextColumn Header="first_name"    Binding="{Binding first_name}"    Width="*"/>
+                            <DataGridTextColumn Header="last_name"     Binding="{Binding last_name}"     Width="*"/>
+                            <DataGridTextColumn Header="email"         Binding="{Binding email}"         Width="2*"/>
+                            <DataGridTextColumn Header="password_hash" Binding="{Binding password_hash}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom"
+                                Margin="0,0,0,10">
+                        <Button Content="Добавить"    Width="100" Margin="5" Click="AddUser_Click"/>
+                        <Button Content="Редактировать"   Width="100" Margin="5" Click="EditUser_Click"/>
+                        <Button Content="Удалить" Width="100" Margin="5" Click="DeleteUser_Click"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- Roles -->
+            <TabItem Header="Roles">
+                <Grid>
+                    <DataGrid x:Name="RolesGrid"
+                              Margin="10"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="role_id"   Binding="{Binding role_id}"   Width="50"/>
+                            <DataGridTextColumn Header="role_name" Binding="{Binding role_name}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom"
+                                Margin="0,0,0,10">
+                        <Button Content="Добавить"    Width="100" Margin="5" Click="AddRole_Click"/>
+                        <Button Content="Редактировать"   Width="100" Margin="5" Click="EditRole_Click"/>
+                        <Button Content="Удалить" Width="100" Margin="5" Click="DeleteRole_Click"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- Departments -->
+            <TabItem Header="Departments">
+                <Grid>
+                    <DataGrid x:Name="DepartmentsGrid"
+                              Margin="10"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="department_id"   Binding="{Binding department_id}"   Width="85"/>
+                            <DataGridTextColumn Header="department_name" Binding="{Binding department_name}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom"
+                                Margin="0,0,0,10">
+                        <Button Content="Добавить"    Width="100" Margin="5" Click="AddDepartment_Click"/>
+                        <Button Content="Редактировать"   Width="100" Margin="5" Click="EditDepartment_Click"/>
+                        <Button Content="Удалить" Width="100" Margin="5" Click="DeleteDepartment_Click"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- Graduates -->
+            <TabItem Header="Graduates">
+                <Grid>
+                    <DataGrid x:Name="GraduatesGrid"
+                              Margin="10"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="graduate_id"   Binding="{Binding graduate_id}"   Width="75"/>
+                            <DataGridTextColumn Header="user_id"       Binding="{Binding user_id}"       Width="50"/>
+                            <DataGridTextColumn Header="department_id" Binding="{Binding department_id}" Width="85"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom"
+                                Margin="0,0,0,10">
+                        <Button Content="Добавить"    Width="100" Margin="5" Click="AddGraduate_Click"/>
+                        <Button Content="Редактировать"   Width="100" Margin="5" Click="EditGraduate_Click"/>
+                        <Button Content="Удалить" Width="100" Margin="5" Click="DeleteGraduate_Click"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- ScientificAdvisors -->
+            <TabItem Header="ScientificAdvisors">
+                <Grid>
+                    <DataGrid x:Name="AdvisorsGrid"
+                              Margin="10"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="advisor_id"    Binding="{Binding advisor_id}"    Width="60"/>
+                            <DataGridTextColumn Header="user_id"       Binding="{Binding user_id}"       Width="50"/>
+                            <DataGridTextColumn Header="department_id" Binding="{Binding department_id}" Width="85"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom"
+                                Margin="0,0,0,10">
+                        <Button Content="Добавить"    Width="100" Margin="5" Click="AddAdvisor_Click"/>
+                        <Button Content="Редактировать"   Width="100" Margin="5" Click="EditAdvisor_Click"/>
+                        <Button Content="Удалить" Width="100" Margin="5" Click="DeleteAdvisor_Click"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- Skills -->
+            <TabItem Header="Skills">
+                <Grid>
+                    <DataGrid x:Name="SkillsGrid"
+                              Margin="10"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="skill_id"   Binding="{Binding skill_id}"   Width="50"/>
+                            <DataGridTextColumn Header="skill_name" Binding="{Binding skill_name}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom"
+                                Margin="0,0,0,10">
+                        <Button Content="Добавить"    Width="100" Margin="5" Click="AddSkill_Click"/>
+                        <Button Content="Редактировать"   Width="100" Margin="5" Click="EditSkill_Click"/>
+                        <Button Content="Удалить" Width="100" Margin="5" Click="DeleteSkill_Click"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- DiplomaWorks -->
+            <TabItem Header="DiplomaWorks">
+                <Grid>
+                    <DataGrid x:Name="DiplomasGrid"
+                              Margin="10"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="diploma_id"  Binding="{Binding diploma_id}"  Width="70"/>
+                            <DataGridTextColumn Header="graduate_id" Binding="{Binding graduate_id}" Width="70"/>
+                            <DataGridTextColumn Header="advisor_id"  Binding="{Binding advisor_id}"  Width="60"/>
+                            <DataGridTextColumn Header="title"       Binding="{Binding title}"       Width="*"/>
+                            <DataGridTextColumn Header="year"        Binding="{Binding year}"        Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom"
+                                Margin="0,0,0,10">
+                        <Button Content="Добавить"    Width="100" Margin="5" Click="AddDiploma_Click"/>
+                        <Button Content="Редактировать"   Width="100" Margin="5" Click="EditDiploma_Click"/>
+                        <Button Content="Удалить" Width="100" Margin="5" Click="DeleteDiploma_Click"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- Awards -->
+            <TabItem Header="Awards">
+                <Grid>
+                    <DataGrid x:Name="AwardsGrid"
+                              Margin="10"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="award_id"    Binding="{Binding award_id}"    Width="60"/>
+                            <DataGridTextColumn Header="graduate_id" Binding="{Binding graduate_id}" Width="70"/>
+                            <DataGridTextColumn Header="award_name"  Binding="{Binding award_name}" Width="*"/>
+                            <DataGridTextColumn Header="award_year"  Binding="{Binding award_year}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom"
+                                Margin="0,0,0,10">
+                        <Button Content="Добавить"    Width="100" Margin="5" Click="AddAward_Click"/>
+                        <Button Content="Редактировать"   Width="100" Margin="5" Click="EditAward_Click"/>
+                        <Button Content="Удалить" Width="100" Margin="5" Click="DeleteAward_Click"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+        </TabControl>
+    </DockPanel>
+</Window>

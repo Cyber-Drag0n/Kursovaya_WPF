@@ -1,0 +1,25 @@
+﻿<Window x:Class="TRIZBD_Lab4.Views.DiplomaWorks.EditDiplomaWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TRIZBD_Lab4.Views.DiplomaWorks"
+        mc:Ignorable="d"
+        Title="Edit DiplomaWork" Height="300" Width="400" WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <StackPanel>
+            <Label>graduate_id</Label>
+            <ComboBox x:Name="GraduateCombo" DisplayMemberPath="graduate_id" SelectedValuePath="graduate_id" SelectedValue="{Binding graduate_id}"/>
+            <Label>advisor_id</Label>
+            <ComboBox x:Name="AdvisorCombo" DisplayMemberPath="advisor_id" SelectedValuePath="advisor_id" SelectedValue="{Binding advisor_id}"/>
+            <Label>title</Label>
+            <TextBox Text="{Binding title}"/>
+            <Label>year</Label>
+            <TextBox Text="{Binding year}"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,10">
+            <Button Content="Сохранить"   Width="100" Margin="5" Click="Save_Click"/>
+            <Button Content="Отменить" Width="100" Margin="5" Click="Cancel_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
